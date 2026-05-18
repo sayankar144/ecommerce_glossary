@@ -12,11 +12,11 @@ export function AddToCart({ defaultVariantId }: { defaultVariantId?: string }) {
     if (!defaultVariantId) return;
     setBusy(true);
     try {
-      let sessionId = window.localStorage.getItem('retailos_session');
+      let sessionId = window.localStorage.getItem('retailos_session_id');
       if (!sessionId) {
         const s = await newSession();
         sessionId = s.sessionId;
-        window.localStorage.setItem('retailos_session', sessionId);
+        window.localStorage.setItem('retailos_session_id', sessionId);
       }
       await addCartItem({ variantId: defaultVariantId, quantity: 1 }, sessionId);
       router.push('/cart');

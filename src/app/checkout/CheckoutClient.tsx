@@ -162,6 +162,7 @@ export function CheckoutClient() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (placingOrder) return;
     setPlacingOrder(true);
     setError(null);
     setPaymentDoneMsg(null);
@@ -488,7 +489,7 @@ export function CheckoutClient() {
              
              <button
                type="submit"
-               disabled={placingOrder}
+               disabled={placingOrder || showSimulatedModal || !!simulatedPayload}
                className="flex items-center justify-center gap-3 w-full bg-[#689f38] text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-[#558b2f] transition-all shadow-lg shadow-emerald-950 mb-6 disabled:opacity-50"
              >
                 {placingOrder ? (
@@ -755,6 +756,7 @@ export function CheckoutClient() {
                     type="button"
                     onClick={() => {
                       setShowSimulatedModal(false);
+                      setSimulatedPayload(null);
                       setError('Payment cancelled by user (Simulation)');
                     }}
                     className="w-full border border-slate-800 hover:border-slate-700 hover:bg-slate-800/20 text-slate-400 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors"
